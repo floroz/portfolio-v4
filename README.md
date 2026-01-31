@@ -1,75 +1,42 @@
-# React + TypeScript + Vite
+# Daniele Tortora — Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal website presented as an interactive point-and-click adventure, inspired by classic SCUMM games (e.g. Day of the Tentacle). Visitors explore a 2D scene, click hotspots, use a retro-style terminal, and open modals to read about skills, experience, contact, and more.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** + **TypeScript**
+- **Vite** (build & dev server)
+- **Framer Motion** (animations)
+- **Zustand** (global state)
+- **Lucide React** (icons)
 
-## React Compiler
+Node.js is managed via **fnm**; the project expects the version in `.nvmrc`.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Run locally
 
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+fnm use
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open the URL shown in the terminal (typically `http://localhost:5173`).
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+### Other scripts
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+| Command           | Description              |
+| ----------------- | ------------------------ |
+| `npm run build`   | Production build         |
+| `npm run preview` | Preview production build |
+| `npm run lint`    | Lint with ESLint         |
+| `npm run format`  | Format with Prettier     |
+
+## How to interact
+
+1. **Welcome screen** — Dismiss to enter the main scene.
+2. **Scene** — Click on the background image; hotspots open content (About, Skills, Contact, Experience, CV/Resume). You can also click to move the character.
+3. **Toolbar** — Bottom bar with quick actions that open the same content modals.
+4. **Floating terminal** — Opens a retro terminal; type `help` for commands (e.g. `about`, `skills`, `contact`, `talk`, `resume`).
+5. **Keyboard** — Shortcuts may be available (see the app or code for details).
+
+Personal info and content are centralized in `src/config/profile.ts` and related config under `src/config/`.
