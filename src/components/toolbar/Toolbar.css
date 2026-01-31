@@ -1,0 +1,44 @@
+/* SCUMM-style toolbar - 40/40/20 grid */
+.toolbar {
+  display: grid;
+  grid-template-columns: 40% 40% 20%;
+  height: 100%;
+  padding: 6px 8px;
+  background: linear-gradient(180deg, #3a3a5c 0%, #2a2a4a 100%);
+  border-top: 2px solid #4a4a6c;
+}
+
+/* Action buttons section (40%) */
+.toolbar__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Status text section (40% - center) */
+.toolbar__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+}
+
+.toolbar__status-text {
+  font-family: "Press Start 2P", "Courier New", monospace;
+  font-size: 7px;
+  color: #ffd700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 #000;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Icon buttons section (20%) */
+.toolbar__icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}

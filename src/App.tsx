@@ -1,35 +1,78 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { GameCanvas } from "./components/game/GameCanvas";
+import { Scene } from "./components/game/Scene";
+import { Toolbar } from "./components/toolbar/Toolbar";
+import { ContentModal } from "./components/game/ContentModal";
+import { RetroTerminal } from "./components/game/RetroTerminal";
+import { FloatingTerminalButton } from "./components/game/FloatingTerminalButton";
+import { WelcomeScreen } from "./components/dialog/WelcomeScreen";
+import { AdventureDialog } from "./components/dialog/AdventureDialog";
+import { useGameStore } from "./store/gameStore";
+import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 
+/**
+ * Day of the Tentacle inspired portfolio
+ * Interactive point-and-click adventure game UI
+ */
 function App() {
-  const [count, setCount] = useState(0)
+  // Global keyboard shortcuts
+  useKeyboardShortcuts();
+
+  const {
+    modalOpen,
+    activeAction,
+    closeModal,
+    terminalOpen,
+    closeTerminal,
+    welcomeShown,
+    dismissWelcome,
+    dialogOpen,
+    closeDialog,
+    openDialog,
+  } = useGameStore();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <GameCanvas>
+        {/* Scene area - 640x320 */}
+        <div className="game-canvas__scene">
+          <Scene />
+        </div>
+
+        {/* Toolbar area - 640x80 */}
+        <div className="game-canvas__toolbar">
+          <Toolbar />
+        </div>
+      </GameCanvas>
+
+      {/* Floating terminal button - always visible */}
+      <FloatingTerminalButton />
+
+      {/* Content modal overlay */}
+      <ContentModal
+        isOpen={modalOpen}
+        action={activeAction}
+        onClose={closeModal}
+      />
+
+      {/* Retro terminal overlay */}
+      <RetroTerminal isOpen={terminalOpen} onClose={closeTerminal} />
+
+      {/* Adventure dialog overlay */}
+      <AdventureDialog isOpen={dialogOpen} onClose={closeDialog} />
+
+      {/* Welcome screen - shown once per session */}
+      {!welcomeShown && (
+        <WelcomeScreen
+          onDismiss={() => {
+            dismissWelcome();
+            // Optionally open welcome dialog after dismissing welcome screen
+            openDialog("welcome");
+          }}
+        />
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;

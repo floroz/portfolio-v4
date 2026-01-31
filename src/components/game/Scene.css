@@ -1,0 +1,140 @@
+/* Scene composition - Flat 2D with depth through layering */
+
+.scene {
+  position: relative;
+  /* Fixed internal resolution - scaled by parent viewport */
+  width: var(--scene-width, 640px);
+  height: var(--scene-height, 320px);
+  overflow: hidden;
+  background: #0a0a1a;
+  /* Critical for pixelated scaling */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Ambient elements layer */
+.scene__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Interactive objects layer */
+.scene__objects {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+}
+
+/* Character layer - above objects, positioned via inline styles */
+.scene__character {
+  position: absolute;
+  z-index: 10;
+  /* Scale from bottom so feet stay on ground */
+  transform-origin: bottom center;
+  /* Shadow from overhead light */
+  filter: drop-shadow(0 10px 6px rgba(0, 0, 0, 0.55));
+  /* Smooth movement transitions (for future animation) */
+  transition:
+    left 0.3s ease-out,
+    bottom 0.3s ease-out,
+    transform 0.2s ease-out;
+}
+
+/* Element positioning - flat, no skew transforms */
+.scene__element {
+  position: absolute;
+}
+
+/* ===========================================
+   WALL-MOUNTED OBJECTS (on back wall)
+   Z-index 2-4, positioned in upper area
+   =========================================== */
+
+/* About sign - upper left wall */
+.scene__element--sign {
+  left: 28px;
+  top: 85px;
+  z-index: 3;
+  filter: drop-shadow(3px 6px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* Clock - upper right wall */
+.scene__element--clock {
+  right: 40px;
+  top: 80px;
+  z-index: 3;
+  filter: drop-shadow(-3px 6px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* Resume/CV frame - left wall area */
+.scene__element--resume {
+  left: 50px;
+  top: 145px;
+  z-index: 3;
+  filter: drop-shadow(3px 6px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* Phone (Contact) - right wall, near blue wall edge */
+.scene__element--phone {
+  right: 195px;
+  top: 115px;
+  z-index: 5;
+  filter: drop-shadow(-3px 6px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* Door (Experience) - right wall, near floor */
+.scene__element--door {
+  right: 40px;
+  bottom: 70px;
+  z-index: 4;
+  filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.5));
+}
+
+/* ===========================================
+   FLOOR OBJECTS
+   Z-index 5-8, positioned on floor area
+   =========================================== */
+
+/* Vending machine (Skills) - left side floor, moved forward */
+.scene__element--vending {
+  left: 130px;
+  bottom: 30px;
+  z-index: 8;
+  filter: drop-shadow(4px 12px 6px rgba(0, 0, 0, 0.55));
+}
+
+/* Desk (Projects) - center-right floor */
+.scene__element--desk {
+  right: 260px;
+  bottom: 45px;
+  z-index: 7;
+  filter: drop-shadow(0 10px 6px rgba(0, 0, 0, 0.55));
+}
+
+/* ===========================================
+   INTERACTIVE STATES
+   =========================================== */
+
+/* Clickable objects get pointer cursor */
+.scene__element[role="button"] {
+  cursor: pointer;
+}
+
+/* Hover state for interactive objects */
+.scene__element--hovered {
+  filter: drop-shadow(0 0 8px rgba(255, 220, 100, 0.6))
+    drop-shadow(0 10px 6px rgba(0, 0, 0, 0.55));
+}
+
+/* Focus visible for keyboard navigation */
+.scene__element:focus-visible {
+  outline: 2px solid var(--color-accent, #ffd700);
+  outline-offset: 4px;
+}
+
+/* Smooth character movement (remove transition for animation loop) */
+.scene__character {
+  transition: transform 0.2s ease-out;
+}

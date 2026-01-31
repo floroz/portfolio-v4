@@ -1,0 +1,179 @@
+/* Vending machine for Skills - Muted DotT colors */
+
+.vending {
+  position: relative;
+  width: 48px;
+  height: 105px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.vending:hover,
+.vending--highlighted {
+  transform: scale(1.02);
+}
+
+.vending:focus {
+  outline: 3px solid #e8c44a;
+  outline-offset: 4px;
+}
+
+/* Machine body - Deep muted red, 3D depth */
+.vending__body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  background: linear-gradient(
+    to right,
+    #5a1818 0%,
+    #7a2828 20%,
+    #8b3030 50%,
+    #7a2828 80%,
+    #5a1818 100%
+  );
+  border: 3px solid #3a1010;
+  border-radius: 3px 3px 0 0;
+  /* Strong 3D shading */
+  box-shadow:
+    inset -8px 0 16px rgba(0, 0, 0, 0.4),
+    inset 4px 0 8px rgba(255, 255, 255, 0.05),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Top sign - muted, hand-painted look */
+.vending__sign {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  height: 14px;
+  background: linear-gradient(to bottom, #3a3a3a 0%, #2a2a2a 100%);
+  border: 2px solid #4a4a4a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Press Start 2P", "Courier New", monospace;
+  font-size: 5px;
+  color: #c4a44a;
+  text-shadow: 1px 1px 0 #1a1a1a;
+}
+
+/* Display window - darker, more subtle */
+.vending__display {
+  position: absolute;
+  top: 22px;
+  left: 4px;
+  right: 4px;
+  height: 40px;
+  background: linear-gradient(to bottom, #1a1a1a 0%, #2a2a2a 100%);
+  border: 2px solid #4a1818;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2px;
+  padding: 3px;
+}
+
+/* Items in display - muted colors */
+.vending__item {
+  background: #3a3a3a;
+  border-radius: 2px;
+  border: 1px solid #2a2a2a;
+}
+
+.vending__item--1 {
+  background: linear-gradient(to bottom, #4a6a8a 0%, #3a5a7a 100%);
+}
+.vending__item--2 {
+  background: linear-gradient(to bottom, #5a8a6a 0%, #4a7a5a 100%);
+}
+.vending__item--3 {
+  background: linear-gradient(to bottom, #8a6a4a 0%, #7a5a3a 100%);
+}
+.vending__item--4 {
+  background: linear-gradient(to bottom, #6a4a7a 0%, #5a3a6a 100%);
+}
+.vending__item--5 {
+  background: linear-gradient(to bottom, #8a5a6a 0%, #7a4a5a 100%);
+}
+.vending__item--6 {
+  background: linear-gradient(to bottom, #6a7a4a 0%, #5a6a3a 100%);
+}
+
+/* Control panel */
+.vending__panel {
+  position: absolute;
+  top: 66px;
+  left: 4px;
+  right: 4px;
+  height: 20px;
+  background: linear-gradient(to bottom, #2a2a2a 0%, #1a1a1a 100%);
+  border: 2px solid #3a3a3a;
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  gap: 4px;
+}
+
+/* Buttons - subtle, not glowing */
+.vending__buttons {
+  display: flex;
+  gap: 2px;
+}
+
+.vending__btn {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid #1a1a1a;
+}
+
+.vending__btn--a {
+  background: linear-gradient(to bottom, #5a8a5a 0%, #4a7a4a 100%);
+}
+
+.vending__btn--b {
+  background: linear-gradient(to bottom, #8a8a5a 0%, #7a7a4a 100%);
+}
+
+.vending__btn--c {
+  background: linear-gradient(to bottom, #8a5a5a 0%, #7a4a4a 100%);
+}
+
+/* Coin slot */
+.vending__slot {
+  width: 12px;
+  height: 3px;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  margin-left: auto;
+}
+
+/* Dispenser */
+.vending__dispenser {
+  position: absolute;
+  bottom: 4px;
+  left: 8px;
+  right: 8px;
+  height: 12px;
+  background: #0a0a0a;
+  border: 2px solid #2a2a2a;
+  border-radius: 0 0 2px 2px;
+}
+
+/* Label */
+.vending__label {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2a2a3a;
+  color: #c4a44a;
+  font-family: "Press Start 2P", "Courier New", monospace;
+  font-size: 5px;
+  padding: 2px 4px;
+  border: 1px solid #3a3a4a;
+  white-space: nowrap;
+}

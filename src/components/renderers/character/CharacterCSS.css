@@ -1,0 +1,431 @@
+/* Daniele-style character - CSS pixel art */
+/* Friendly dev with stubble, navy sweater (matches retro-daniele.png) */
+
+.character {
+  position: relative;
+  width: 48px;
+  height: 80px;
+  image-rendering: pixelated;
+  transform-origin: bottom center;
+}
+
+.character--left {
+  transform: scaleX(-1);
+}
+
+.character--idle {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+/* HEAD - Friendly cartoon head */
+.character__head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 32px;
+  background: linear-gradient(to bottom, #f5c6a5 0%, #e8b898 100%);
+  border-radius: 50% 50% 45% 45%;
+  border: 2px solid #d4a574;
+  box-shadow: inset -4px -4px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* Hair - Dark brown, short styled hair */
+.character__hair {
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  right: 2px;
+  height: 14px;
+  background: linear-gradient(to bottom, #3d3025 0%, #2d2319 60%);
+  border-radius: 50% 50% 30% 30%;
+  border: 2px solid #1d1510;
+  border-bottom: none;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Hair volume/texture on top */
+.character__hair::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 4px;
+  right: 4px;
+  height: 8px;
+  background: linear-gradient(to bottom, #4a3d30 0%, #3d3025 100%);
+  border-radius: 50% 50% 40% 40%;
+}
+
+/* Side hair that frames the face */
+.character__hair::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: -1px;
+  width: 5px;
+  height: 6px;
+  background: #2d2319;
+  border-radius: 0 0 40% 40%;
+  box-shadow: 24px 0 0 #2d2319;
+}
+
+/* Face area */
+.character__face {
+  position: absolute;
+  top: 10px;
+  left: 4px;
+  right: 4px;
+  height: 20px;
+}
+
+/* Eyebrows */
+.character__eyebrows {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+}
+
+.character__eyebrow {
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background: #3d2d1d;
+  border-radius: 2px;
+}
+
+.character__eyebrow--left {
+  left: 2px;
+  transform: rotate(-5deg);
+}
+
+.character__eyebrow--right {
+  right: 2px;
+  transform: rotate(5deg);
+}
+
+/* Eyes - friendly round eyes */
+.character__eyes {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+}
+
+.character__eye {
+  position: absolute;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  background: #2a2a2a;
+  border-radius: 50%;
+}
+
+.character__eye--left {
+  left: 3px;
+}
+
+.character__eye--right {
+  right: 3px;
+}
+
+/* Nose */
+.character__nose {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background: #e0aa88;
+  border-radius: 50%;
+  border-bottom: 1px solid #d4a574;
+}
+
+/* Stubble/beard - dotted texture */
+.character__stubble {
+  position: absolute;
+  bottom: 1px;
+  left: 3px;
+  right: 3px;
+  height: 6px;
+  background:
+    radial-gradient(
+      circle at 2px 2px,
+      rgba(60, 45, 35, 0.4) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 6px 4px,
+      rgba(60, 45, 35, 0.35) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 10px 2px,
+      rgba(60, 45, 35, 0.4) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 14px 3px,
+      rgba(60, 45, 35, 0.35) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 18px 2px,
+      rgba(60, 45, 35, 0.4) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 4px 5px,
+      rgba(60, 45, 35, 0.3) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 12px 5px,
+      rgba(60, 45, 35, 0.3) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 16px 5px,
+      rgba(60, 45, 35, 0.3) 1px,
+      transparent 1px
+    );
+  border-radius: 0 0 8px 8px;
+}
+
+/* Mouth - Friendly smile */
+.character__mouth {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 4px;
+  background: transparent;
+  border: 2px solid #b86655;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Teeth showing in smile */
+.character__mouth::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1px;
+  right: 1px;
+  height: 2px;
+  background: #fff;
+  border-radius: 0 0 2px 2px;
+}
+
+/* Ears */
+.character__ear {
+  position: absolute;
+  top: 14px;
+  width: 5px;
+  height: 7px;
+  background: #f0be98;
+  border: 1px solid #d4a574;
+  border-radius: 50%;
+}
+
+.character__ear--left {
+  left: -2px;
+}
+
+.character__ear--right {
+  right: -2px;
+}
+
+/* BODY */
+.character__body {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+}
+
+/* Neck */
+.character__neck {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 6px;
+  background: #f5c6a5;
+  border: 1px solid #d4a574;
+}
+
+/* Crew neck collar */
+.character__collar {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 4px;
+  background: #1a2a42;
+  border-radius: 0 0 4px 4px;
+  border: 1px solid #0f1a28;
+  border-top: none;
+}
+
+/* Torso - Navy blue sweater */
+.character__torso {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 22px;
+  background: linear-gradient(
+    to right,
+    #1a2a42 0%,
+    #243850 30%,
+    #2a4060 50%,
+    #243850 70%,
+    #1a2a42 100%
+  );
+  border: 2px solid #0f1a28;
+  border-radius: 4px 4px 0 0;
+  box-shadow:
+    inset -3px 0 6px rgba(0, 0, 0, 0.2),
+    inset 2px 0 4px rgba(255, 255, 255, 0.05);
+}
+
+/* Subtle sweater texture */
+.character__torso::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 3px
+  );
+  border-radius: 2px;
+}
+
+/* Arms - Navy sweater sleeves */
+.character__arm {
+  position: absolute;
+  top: 8px;
+  width: 6px;
+  height: 18px;
+  background: linear-gradient(to bottom, #1f3048 0%, #1a2a42 100%);
+  border: 1px solid #0f1a28;
+}
+
+.character__arm--left {
+  left: -4px;
+  border-radius: 4px 0 4px 4px;
+  transform: rotate(6deg);
+}
+
+.character__arm--right {
+  right: -4px;
+  border-radius: 0 4px 4px 4px;
+  transform: rotate(-6deg);
+}
+
+/* Hands */
+.character__hand {
+  position: absolute;
+  top: 24px;
+  width: 6px;
+  height: 6px;
+  background: #f5c6a5;
+  border: 1px solid #d4a574;
+  border-radius: 50%;
+}
+
+.character__hand--left {
+  left: -4px;
+}
+
+.character__hand--right {
+  right: -4px;
+}
+
+/* LEGS - Dark jeans/pants */
+.character__legs {
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 16px;
+  display: flex;
+  gap: 2px;
+}
+
+.character__leg {
+  width: 8px;
+  height: 16px;
+  background: linear-gradient(to right, #3a3a3a 0%, #4a4a4a 50%, #3a3a3a 100%);
+  border: 1px solid #2a2a2a;
+}
+
+.character__leg--left {
+  border-radius: 0 0 0 4px;
+}
+
+.character__leg--right {
+  border-radius: 0 0 4px 0;
+}
+
+/* FEET - Dark shoes */
+.character__feet {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.character__foot {
+  width: 10px;
+  height: 6px;
+  background: linear-gradient(to bottom, #2a2a2a 0%, #1a1a1a 100%);
+  border: 1px solid #0a0a0a;
+  border-radius: 2px 2px 4px 4px;
+}
+
+/* Walking animation */
+@keyframes walk-legs {
+  0%,
+  100% {
+    transform: translateX(-50%) skewX(0deg);
+  }
+  25% {
+    transform: translateX(-50%) skewX(10deg);
+  }
+  75% {
+    transform: translateX(-50%) skewX(-10deg);
+  }
+}
+
+.character--walking .character__legs {
+  animation: walk-legs 0.4s ease-in-out infinite;
+}
+
+/* Breathing animation */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(1.015) scaleX(0.99);
+  }
+}
