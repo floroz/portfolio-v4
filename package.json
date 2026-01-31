@@ -14,7 +14,9 @@
     "format": "prettier --write .",
     "knip": "knip",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:docker": "./scripts/playwright-docker.sh",
+    "test:e2e:docker:update": "./scripts/playwright-docker.sh --update-snapshots"
   },
   "dependencies": {
     "framer-motion": "^12.29.2",
