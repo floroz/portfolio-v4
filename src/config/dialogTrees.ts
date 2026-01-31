@@ -6,10 +6,19 @@
 import type { DialogNode } from "../types/game";
 
 export const DIALOG_TREE: Record<string, DialogNode> = {
-  // Welcome / Entry point
+  // Intro - shown first after welcome screen with typewriter effect
+  intro: {
+    speaker: "daniele",
+    text: "Congratulations, traveler! You've discovered this little corner of the internet. I'm Daniele, and this is my interactive portfolio. Feel free to explore!",
+    options: [
+      { id: "continue", label: "Nice to meet you!", nextNode: "welcome" },
+    ],
+  },
+
+  // Welcome / Main hub
   welcome: {
     speaker: "daniele",
-    text: "Welcome to my portfolio, traveler! I see you've found my little corner of the web.",
+    text: "So, what would you like to know about me?",
     options: [
       { id: "about", label: "Tell me about yourself", nextNode: "about-intro" },
       {

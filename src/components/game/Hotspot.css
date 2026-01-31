@@ -1,0 +1,50 @@
+/* Interactive hotspot overlay */
+.hotspot {
+  position: absolute;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  /* Debug outline - remove for production */
+  /* outline: 2px dashed rgba(255, 255, 0, 0.5); */
+  transition: all 0.2s ease;
+}
+
+/* Hover state - subtle highlight */
+.hotspot--hovered {
+  background: rgba(255, 220, 100, 0.15);
+  box-shadow: 0 0 20px rgba(255, 220, 100, 0.4);
+}
+
+/* Label - hidden by default, shown on hover */
+.hotspot__label {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #ffd700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  margin-bottom: 4px;
+}
+
+.hotspot--hovered .hotspot__label {
+  opacity: 1;
+}
+
+/* Focus visible for keyboard navigation */
+.hotspot:focus-visible {
+  outline: 2px solid var(--color-accent, #ffd700);
+  outline-offset: 2px;
+}
+
+.hotspot:focus-visible .hotspot__label {
+  opacity: 1;
+}

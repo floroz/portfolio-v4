@@ -17,12 +17,12 @@ export function Toolbar() {
     }
     if (hoveredObject) {
       const labels: Record<string, string> = {
-        experience: "Office Door",
-        projects: "Desk",
-        skills: "Vending Machine",
-        contact: "Phone",
-        resume: "Resume Frame",
-        about: "About Sign",
+        experience: "View Experience",
+        projects: "View Projects",
+        skills: "View Skills",
+        contact: "View Contact",
+        resume: "View Resume",
+        about: "View About",
       };
       return labels[hoveredObject] || hoveredObject;
     }

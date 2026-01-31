@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import { GameCanvas } from "./components/game/GameCanvas";
 import { Scene } from "./components/game/Scene";
@@ -18,6 +19,9 @@ function App() {
   // Global keyboard shortcuts
   useKeyboardShortcuts();
 
+  // Track when welcome screen is dismissed to trigger dialog
+  const [welcomeDismissed, setWelcomeDismissed] = useState(false);
+
   const {
     modalOpen,
     activeAction,
@@ -30,6 +34,30 @@ function App() {
     closeDialog,
     openDialog,
   } = useGameStore();
+
+  // Open intro dialog after welcome screen is dismissed
+  useEffect(() => {
+    if (welcomeDismissed && welcomeShown) {
+      const timer = setTimeout(() => {
+        openDialog("intro");
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [welcomeDismissed, welcomeShown, openDialog]);
+
+  // Don't render game content until welcome screen is dismissed
+  if (!welcomeShown) {
+    return (
+      <div className="app">
+        <WelcomeScreen
+          onDismiss={() => {
+            dismissWelcome();
+            setWelcomeDismissed(true);
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="app">
@@ -61,16 +89,8 @@ function App() {
       {/* Adventure dialog overlay */}
       <AdventureDialog isOpen={dialogOpen} onClose={closeDialog} />
 
-      {/* Welcome screen - shown once per session */}
-      {!welcomeShown && (
-        <WelcomeScreen
-          onDismiss={() => {
-            dismissWelcome();
-            // Optionally open welcome dialog after dismissing welcome screen
-            openDialog("welcome");
-          }}
-        />
-      )}
+      {/* Copyright footer */}
+      <footer className="app__copyright">© 2026 Daniele Tortora</footer>
     </div>
   );
 }

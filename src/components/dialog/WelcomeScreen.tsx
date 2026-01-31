@@ -9,13 +9,13 @@ interface WelcomeScreenProps {
 
 /**
  * Full-screen welcome intro featuring large portrait
- * Displays once per session, dismisses on any key press or click
+ * Displays once per session, dismisses only on SPACE key or clicking the prompt
  */
 export function WelcomeScreen({ onDismiss }: WelcomeScreenProps) {
   const soundEnabled = useGameStore((state) => state.soundEnabled);
   const toggleSound = useGameStore((state) => state.toggleSound);
 
-  // Handle any key press or click to dismiss
+  // Handle dismiss - only triggered by space key or clicking prompt
   const handleDismiss = useCallback(() => {
     onDismiss();
   }, [onDismiss]);
@@ -29,11 +29,22 @@ export function WelcomeScreen({ onDismiss }: WelcomeScreenProps) {
     [toggleSound],
   );
 
+  // Handle prompt click
+  const handlePromptClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      handleDismiss();
+    },
+    [handleDismiss],
+  );
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Dismiss on any key
-      e.preventDefault();
-      handleDismiss();
+      // Only dismiss on SPACE key
+      if (e.key === " " || e.code === "Space") {
+        e.preventDefault();
+        handleDismiss();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -46,13 +57,32 @@ export function WelcomeScreen({ onDismiss }: WelcomeScreenProps) {
   return (
     <div
       className="welcome-screen"
-      onClick={handleDismiss}
-      role="button"
-      tabIndex={0}
-      aria-label="Welcome screen - press any key or click to continue"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Welcome screen - press space to start"
     >
       {/* CRT scanline overlay */}
       <div className="welcome-screen__scanlines" aria-hidden="true" />
+
+      {/* Sound toggle in corner */}
+      <div className="welcome-screen__sound-corner">
+        <button
+          className={`welcome-screen__sound-toggle ${soundEnabled ? "welcome-screen__sound-toggle--on" : ""}`}
+          onClick={handleSoundToggle}
+          aria-pressed={soundEnabled}
+          aria-label={soundEnabled ? "Sound enabled" : "Sound disabled"}
+        >
+          <span className="welcome-screen__sound-icon" aria-hidden="true">
+            {soundEnabled ? "🔊" : "🔇"}
+          </span>
+          <span className="welcome-screen__sound-label">
+            SOUND: {soundEnabled ? "ON" : "OFF"}
+          </span>
+        </button>
+        <p className="welcome-screen__sound-hint">
+          Enable for better experience
+        </p>
+      </div>
 
       {/* Content container */}
       <div className="welcome-screen__content">
@@ -65,28 +95,14 @@ export function WelcomeScreen({ onDismiss }: WelcomeScreenProps) {
         <h1 className="welcome-screen__name">DANIELE TORTORA</h1>
         <p className="welcome-screen__title">Senior Software Engineer</p>
 
-        {/* Sound toggle */}
-        <div className="welcome-screen__sound-section">
-          <button
-            className={`welcome-screen__sound-toggle ${soundEnabled ? "welcome-screen__sound-toggle--on" : ""}`}
-            onClick={handleSoundToggle}
-            aria-pressed={soundEnabled}
-            aria-label={soundEnabled ? "Sound enabled" : "Sound disabled"}
-          >
-            <span className="welcome-screen__sound-icon" aria-hidden="true">
-              {soundEnabled ? "🔊" : "🔇"}
-            </span>
-            <span className="welcome-screen__sound-label">
-              SOUND: {soundEnabled ? "ON" : "OFF"}
-            </span>
-          </button>
-          <p className="welcome-screen__sound-hint">
-            ★ Enable sound for a better experience ★
-          </p>
-        </div>
-
-        {/* Press any key prompt */}
-        <p className="welcome-screen__prompt">[ Press any key to start ]</p>
+        {/* Press space to start prompt - clickable */}
+        <button
+          className="welcome-screen__prompt"
+          onClick={handlePromptClick}
+          aria-label="Press space or click to start"
+        >
+          [ Press SPACE to start ]
+        </button>
       </div>
 
       {/* Decorative corner elements */}

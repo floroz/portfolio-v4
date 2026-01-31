@@ -1,12 +1,28 @@
 /* App root - full viewport game container */
 .app {
   min-height: 100vh;
+  max-height: 100vh;
   background: var(--color-bg-dark, #1a1a2e);
   overflow: hidden;
-}
-
-/* Ensure proper stacking context for overlays */
-.app {
+  display: flex;
+  flex-direction: column;
   position: relative;
   isolation: isolate;
+}
+
+/* Copyright footer - fixed at bottom */
+.app__copyright {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 24px;
+  text-align: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #4a4a6a;
+  letter-spacing: 1px;
+  background: transparent;
+  pointer-events: none;
+  z-index: 1;
 }

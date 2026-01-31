@@ -1,4 +1,5 @@
 import type { SceneConfig, InteractiveObjectConfig } from "../types/game";
+import type { HotspotConfig } from "../components/game/Hotspot";
 
 /**
  * Scene dimensions - classic SCUMM game ratio
@@ -21,13 +22,72 @@ export const VIEWPORT = {
  */
 export const WALKABLE_AREA = {
   minY: 20, // Front of floor (closest to viewer)
-  maxY: 64, // Back of floor (farthest from viewer)
+  maxY: 85, // Back of floor (farthest from viewer) - expanded to reach upper floor area
   minX: 40, // Left edge
   maxX: 600, // Right edge
 } as const;
 
 /**
- * Interactive objects configuration
+ * Maximum time (in seconds) for character to reach any destination
+ * Used to calculate dynamic speed for button-triggered movement
+ */
+export const MAX_TRAVEL_TIME = 1.5;
+
+/**
+ * Hotspot configuration for image-based background
+ * Positions are percentages relative to scene dimensions
+ * These overlay the interactive areas in background.png
+ */
+export const HOTSPOTS: HotspotConfig[] = [
+  {
+    id: "about",
+    left: 8,
+    top: 28,
+    width: 12,
+    height: 32,
+    action: "about",
+    label: "About Me",
+  },
+  {
+    id: "skills",
+    left: 20,
+    top: 20,
+    width: 12,
+    height: 50,
+    action: "skills",
+    label: "Skills",
+  },
+  {
+    id: "contact",
+    left: 46,
+    top: 28,
+    width: 10,
+    height: 22,
+    action: "contact",
+    label: "Contact",
+  },
+  {
+    id: "experience",
+    left: 56,
+    top: 18,
+    width: 12,
+    height: 52,
+    action: "experience",
+    label: "Experience",
+  },
+  {
+    id: "resume",
+    left: 76,
+    top: 14,
+    width: 20,
+    height: 46,
+    action: "resume",
+    label: "CV / Resume",
+  },
+];
+
+/**
+ * Interactive objects configuration (legacy - kept for reference)
  * Positions are based on visual placement in LobbyBackground
  */
 export const OBJECTS: InteractiveObjectConfig[] = [

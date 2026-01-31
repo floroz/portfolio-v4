@@ -2,7 +2,7 @@ import { useEffect, useCallback, useRef } from "react";
 import { useGameStore } from "../store/gameStore";
 import {
   CHARACTER_SPEED,
-  CHARACTER_INTERACTION_SPEED,
+  MAX_TRAVEL_TIME,
   clampToWalkableArea,
   VIEWPORT,
 } from "../config/scene";
@@ -15,6 +15,7 @@ const ARRIVAL_THRESHOLD = 5; // Distance in pixels to consider "arrived"
 export function useCharacterMovement() {
   const animationFrameRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(0);
+  const initialDistanceRef = useRef<number>(0);
 
   const {
     characterPosition,
@@ -33,8 +34,15 @@ export function useCharacterMovement() {
         cancelAnimationFrame(animationFrameRef.current);
         animationFrameRef.current = null;
       }
+      initialDistanceRef.current = 0;
       return;
     }
+
+    // Calculate initial distance for speed calculation
+    const store = useGameStore.getState();
+    const dx = targetPosition.x - store.characterPosition.x;
+    const dy = targetPosition.y - store.characterPosition.y;
+    initialDistanceRef.current = Math.sqrt(dx * dx + dy * dy);
 
     const animate = (currentTime: number) => {
       if (!lastTimeRef.current) {
@@ -44,39 +52,46 @@ export function useCharacterMovement() {
       const deltaTime = (currentTime - lastTimeRef.current) / 1000; // Convert to seconds
       lastTimeRef.current = currentTime;
 
-      const store = useGameStore.getState();
+      const currentStore = useGameStore.getState();
       const {
         characterPosition: pos,
         targetPosition: target,
         pendingAction,
-      } = store;
+      } = currentStore;
 
       if (!target) return;
 
       // Calculate direction and distance
-      const dx = target.x - pos.x;
-      const dy = target.y - pos.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+      const currentDx = target.x - pos.x;
+      const currentDy = target.y - pos.y;
+      const distance = Math.sqrt(currentDx * currentDx + currentDy * currentDy);
 
       // Check if arrived
       if (distance < ARRIVAL_THRESHOLD) {
-        store.setCharacterPosition(target);
-        store.onArrival();
+        currentStore.setCharacterPosition(target);
+        currentStore.onArrival();
         lastTimeRef.current = 0;
+        initialDistanceRef.current = 0;
         return;
       }
 
-      // Use faster speed when moving to an interactive object
-      const speed = pendingAction
-        ? CHARACTER_INTERACTION_SPEED
-        : CHARACTER_SPEED;
+      // Calculate speed: for button-triggered actions, ensure max 1.5s travel time
+      // For free movement, use normal speed
+      let speed = CHARACTER_SPEED;
+      if (pendingAction && initialDistanceRef.current > 0) {
+        // Calculate speed needed to cover initial distance in MAX_TRAVEL_TIME
+        const requiredSpeed = initialDistanceRef.current / MAX_TRAVEL_TIME;
+        // Use the higher of required speed or base speed
+        speed = Math.max(requiredSpeed, CHARACTER_SPEED);
+      }
+
       const moveDistance = speed * deltaTime;
       const ratio = Math.min(moveDistance / distance, 1);
 
-      const newX = pos.x + dx * ratio;
-      const newY = pos.y + dy * ratio;
+      const newX = pos.x + currentDx * ratio;
+      const newY = pos.y + currentDy * ratio;
 
-      store.setCharacterPosition({ x: newX, y: newY });
+      currentStore.setCharacterPosition({ x: newX, y: newY });
 
       // Continue animation
       animationFrameRef.current = requestAnimationFrame(animate);

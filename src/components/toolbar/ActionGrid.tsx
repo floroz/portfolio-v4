@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import "./ActionGrid.css";
 import { useSceneClick } from "../../hooks/useSceneClick";
+import { useGameStore } from "../../store/gameStore";
 import type { ActionType } from "../../types/game";
 import type { LucideIcon } from "lucide-react";
 
@@ -31,6 +32,7 @@ const ACTIONS: ActionButton[] = [
  */
 export function ActionGrid() {
   const { handleActionClick } = useSceneClick();
+  const setHoveredObject = useGameStore((state) => state.setHoveredObject);
 
   return (
     <div className="action-grid">
@@ -39,6 +41,8 @@ export function ActionGrid() {
           key={action}
           className="action-grid__button"
           onClick={() => handleActionClick(action)}
+          onMouseEnter={() => setHoveredObject(action)}
+          onMouseLeave={() => setHoveredObject(null)}
           type="button"
           title={label}
         >

@@ -1,4 +1,4 @@
-/* Scene composition - Flat 2D with depth through layering */
+/* Scene composition - Image-based with hotspot overlays */
 
 .scene {
   position: relative;
@@ -12,7 +12,14 @@
   image-rendering: crisp-edges;
 }
 
-/* Ambient elements layer */
+/* Interactive hotspots layer - overlays on background */
+.scene__hotspots {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+}
+
+/* Legacy: Ambient elements layer */
 .scene__ambient {
   position: absolute;
   inset: 0;
@@ -20,7 +27,7 @@
   z-index: 5;
 }
 
-/* Interactive objects layer */
+/* Legacy: Interactive objects layer */
 .scene__objects {
   position: absolute;
   inset: 0;

@@ -9,7 +9,6 @@
   justify-content: center;
   align-items: center;
   z-index: 2000;
-  cursor: pointer;
   animation: welcome-fade-in 1s ease-out;
   overflow: hidden;
 }
@@ -65,7 +64,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   padding: 40px;
   transform: scale(1.5);
   transform-origin: center center;
@@ -138,24 +137,27 @@
   text-align: center;
 }
 
-/* Sound toggle section */
-.welcome-screen__sound-section {
+/* Sound toggle in top-right corner */
+.welcome-screen__sound-corner {
+  position: absolute;
+  top: 32px;
+  right: 32px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 8px;
-  margin-top: 16px;
+  z-index: 10;
 }
 
 .welcome-screen__sound-toggle {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 10px;
+  padding: 10px 16px;
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
   color: #607080;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
   border: 2px solid #607080;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -180,7 +182,7 @@
 }
 
 .welcome-screen__sound-icon {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
 }
 
@@ -191,32 +193,46 @@
 .welcome-screen__sound-hint {
   font-family: "Press Start 2P", monospace;
   font-size: 8px;
-  color: #ffd700;
-  letter-spacing: 1px;
+  color: #a0b0c0;
+  letter-spacing: 0.5px;
   margin: 0;
-  animation: hint-pulse 2s ease-in-out infinite;
-  text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+  opacity: 0.8;
 }
 
-@keyframes hint-pulse {
-  0%,
-  100% {
-    opacity: 0.7;
-  }
-  50% {
-    opacity: 1;
-  }
+/* Legacy: Sound section (not used) */
+.welcome-screen__sound-section {
+  display: none;
 }
 
-/* Press any key prompt */
+/* Press space to start prompt - clickable button */
 .welcome-screen__prompt {
   font-family: "Press Start 2P", monospace;
   font-size: 12px;
-  color: #607080;
+  color: #00d4aa;
   letter-spacing: 1px;
   margin: 0;
-  margin-top: 24px;
+  margin-top: 32px;
+  padding: 12px 24px;
+  background: transparent;
+  border: 2px solid transparent;
+  cursor: pointer;
   animation: prompt-blink 1.5s ease-in-out infinite;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.welcome-screen__prompt:hover {
+  border-color: #00d4aa;
+  background: rgba(0, 212, 170, 0.1);
+  animation: none;
+  opacity: 1;
+}
+
+.welcome-screen__prompt:focus {
+  outline: none;
+  border-color: #00d4aa;
+  box-shadow: 0 0 15px rgba(0, 212, 170, 0.4);
 }
 
 @keyframes prompt-blink {
@@ -225,7 +241,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.3;
+    opacity: 0.4;
   }
 }
 
@@ -279,11 +295,17 @@
 
   .welcome-screen__prompt {
     font-size: 8px;
+    padding: 8px 16px;
+  }
+
+  .welcome-screen__sound-corner {
+    top: 16px;
+    right: 16px;
   }
 
   .welcome-screen__sound-toggle {
     font-size: 8px;
-    padding: 6px 12px;
+    padding: 8px 12px;
   }
 
   .welcome-screen__sound-icon {
