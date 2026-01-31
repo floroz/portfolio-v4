@@ -6,12 +6,14 @@
   z-index: 200;
 }
 
-/* Terminal window - centered with fixed positioning */
+/* Terminal window - centered with flexbox on backdrop */
 .terminal {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   width: 90vw;
   max-width: 600px;
   height: 60vh;

@@ -22,7 +22,8 @@ export type ActionType =
   | "skills"
   | "about"
   | "contact"
-  | "resume";
+  | "resume"
+  | "talk";
 
 export interface InteractiveObjectConfig {
   id: string;

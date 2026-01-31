@@ -1,72 +1,63 @@
-import { Github, Linkedin, Terminal } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { Github, Linkedin, Terminal, MessageCircle } from "lucide-react";
 import "./IconGrid.css";
 import { useGameStore } from "../../store/gameStore";
 import { PROFILE } from "../../config/profile";
 
-interface IconButton {
-  id: string;
-  label: string;
-  icon: LucideIcon;
-  href?: string;
-  onClick?: () => void;
-}
-
 /**
- * Row of icon buttons (external links + terminal toggle)
+ * 2x2 grid of buttons matching the retro SCUMM toolbar style
+ * - Top row: Social links (GitHub, LinkedIn)
+ * - Bottom row: Talk and Terminal
  */
 export function IconGrid() {
-  const { toggleTerminal } = useGameStore();
-
-  const icons: IconButton[] = [
-    {
-      id: "github",
-      label: "GitHub",
-      icon: Github,
-      href: PROFILE.social.github,
-    },
-    {
-      id: "linkedin",
-      label: "LinkedIn",
-      icon: Linkedin,
-      href: PROFILE.social.linkedin,
-    },
-    {
-      id: "terminal",
-      label: "Terminal",
-      icon: Terminal,
-      onClick: toggleTerminal,
-    },
-  ];
+  const { toggleTerminal, openDialog, setHoveredObject } = useGameStore();
 
   return (
     <div className="icon-grid">
-      {icons.map(({ id, label, icon: Icon, href, onClick }) =>
-        href ? (
-          <a
-            key={id}
-            className="icon-grid__button"
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={label}
-            title={label}
-          >
-            <Icon className="icon-grid__icon" size={16} strokeWidth={2} />
-          </a>
-        ) : (
-          <button
-            key={id}
-            className="icon-grid__button"
-            onClick={onClick}
-            type="button"
-            aria-label={label}
-            title={label}
-          >
-            <Icon className="icon-grid__icon" size={16} strokeWidth={2} />
-          </button>
-        ),
-      )}
+      {/* Row 1: Social links */}
+      <a
+        className="icon-grid__button"
+        href={PROFILE.social.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        onMouseEnter={() => setHoveredObject("github")}
+        onMouseLeave={() => setHoveredObject(null)}
+      >
+        <Github className="icon-grid__icon" size={12} strokeWidth={2} />
+        <span className="icon-grid__label">GitHub</span>
+      </a>
+      <a
+        className="icon-grid__button"
+        href={PROFILE.social.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        onMouseEnter={() => setHoveredObject("linkedin")}
+        onMouseLeave={() => setHoveredObject(null)}
+      >
+        <Linkedin className="icon-grid__icon" size={12} strokeWidth={2} />
+        <span className="icon-grid__label">LinkedIn</span>
+      </a>
+
+      {/* Row 2: Talk and Terminal */}
+      <button
+        className="icon-grid__button icon-grid__button--highlight"
+        onClick={() => openDialog("intro")}
+        onMouseEnter={() => setHoveredObject("talk")}
+        onMouseLeave={() => setHoveredObject(null)}
+        type="button"
+      >
+        <MessageCircle className="icon-grid__icon" size={12} strokeWidth={2} />
+        <span className="icon-grid__label">Talk</span>
+      </button>
+      <button
+        className="icon-grid__button icon-grid__button--highlight"
+        onClick={toggleTerminal}
+        onMouseEnter={() => setHoveredObject("terminal")}
+        onMouseLeave={() => setHoveredObject(null)}
+        type="button"
+      >
+        <Terminal className="icon-grid__icon" size={12} strokeWidth={2} />
+        <span className="icon-grid__label">Terminal</span>
+      </button>
     </div>
   );
 }

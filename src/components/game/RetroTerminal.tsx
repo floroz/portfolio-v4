@@ -62,9 +62,9 @@ export function RetroTerminal({ isOpen, onClose }: RetroTerminalProps) {
           {/* Terminal window */}
           <motion.div
             className="terminal"
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
             {/* Scanline overlay */}

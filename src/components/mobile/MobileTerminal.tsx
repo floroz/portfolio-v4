@@ -14,7 +14,7 @@ const QUICK_COMMANDS: QuickCommand[] = [
   { label: "Skills", command: "skills" },
   { label: "Projects", command: "projects" },
   { label: "Contact", command: "contact" },
-  { label: "Resume", command: "resume" },
+  { label: "Talk", command: "talk" },
 ];
 
 /**

@@ -5,7 +5,6 @@ import { Scene } from "./components/game/Scene";
 import { Toolbar } from "./components/toolbar/Toolbar";
 import { ContentModal } from "./components/game/ContentModal";
 import { RetroTerminal } from "./components/game/RetroTerminal";
-import { FloatingTerminalButton } from "./components/game/FloatingTerminalButton";
 import { WelcomeScreen } from "./components/dialog/WelcomeScreen";
 import { AdventureDialog } from "./components/dialog/AdventureDialog";
 import { MobileTerminal } from "./components/mobile/MobileTerminal";
@@ -96,9 +95,6 @@ function App() {
           <Toolbar />
         </div>
       </GameCanvas>
-
-      {/* Floating terminal button - always visible */}
-      <FloatingTerminalButton />
 
       {/* Content modal overlay */}
       <ContentModal

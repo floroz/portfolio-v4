@@ -23,6 +23,10 @@ export function Toolbar() {
         contact: "View Contact",
         resume: "View Resume",
         about: "View About",
+        github: "Visit GitHub Profile",
+        linkedin: "Visit LinkedIn Profile",
+        talk: "Talk to Daniele",
+        terminal: "Open Terminal",
       };
       return labels[hoveredObject] || hoveredObject;
     }
